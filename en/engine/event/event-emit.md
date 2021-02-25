@@ -109,19 +109,19 @@ As shown in the picture above, when we send the event `“foobar”` from node c
 
 ```ts
 // In the component script of node c
-this.node.dispatchEvent( new Event.EventCustom('foobar', true) );
+this.node.emit('foobar', true);;
 ```
 
 To stop the event delivery after node b intercepts the event, call the function `event.propagationStopped = true` to do this. Detailed methods are as follows:
 
 ```ts
 // In the component script of node b
-this.node.on('foobar', (event: EventCustom) => {
+this.node.on('foobar', (...args: any[]) => {
   event.propagationStopped = true;
 });
 ```
 
-> __Note__: to dispatch a custom event, do not use `Event` because it's an abstract class. Instead, use `Event.EventCustom` to dispatch a custom event.
+> __Note__: to dispatch a custom event, do not use `Event` because it's an abstract class. Instead, dispatch directly based on message name.
 
 ## Event object
 
@@ -135,9 +135,6 @@ In the call-back of the event listener, the developer will receive an event obje
 | __getType__                     | Function | Get the event type.                                                                                                                              |
 | __propagationStopped__          | Boolean  | Whether or not stop the bubbling phase. The parent node of the current target no longer receives the corresponding event.                        |
 | __propagationImmediateStopped__ | Boolean  | Whether or not stop passing the current event immediately. The current target no longer receives the event either.                               |
-| __detail__                      | Function | The information of the custom event, which belongs to Event.EventCustom.                                                                         |
-| __setUserData__                 | Function | Set the information of the custom event, which belongs to Event.EventCustom.                                                                     |
-| __getUserData__                 | Function | Get the information of the custom event, which belongs to Event.EventCustom.                                                                     |
 
 Please refer to the `Event` and API files of its child category for a complete API list.
 

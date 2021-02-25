@@ -109,19 +109,19 @@ export class Example extends Component {
 
 ```ts
 // 节点 c 的组件脚本中
-this.node.dispatchEvent( new Event.EventCustom('foobar', true) );
+this.node.emit('foobar', true);
 ```
 
 如果我们希望在 b 节点截获事件后就不再传递事件，我们可以通过调用 `event.propagationStopped = true` 函数来完成。具体方法如下：
 
 ```ts
 // 节点 b 的组件脚本中
-this.node.on('foobar', (event: EventCustom) => {
+this.node.on('foobar', (...args: any[]) => {
   event.propagationStopped = true;
 });
 ```
 
-请注意，在发送用户自定义事件的时候，请不要直接创建 cc 内的 Event 对象，因为它是一个抽象类，请创建 Event.EventCustom 对象来进行派发。
+请注意，在发送用户自定义事件的时候，请不要直接创建 cc 内的 Event 对象，因为它是一个抽象类，请直接根据消息名进行派发。
 
 ## 事件对象
 
@@ -135,9 +135,6 @@ this.node.on('foobar', (event: EventCustom) => {
 | **getType**      | Function   | 获取事件的类型。                      |
 | **propagationStopped**   | Boolean   | 是否停止传递当前事件。                      |
 | **propagationImmediateStopped**              | Boolean   | 是否立即停止当前事件的传递，事件甚至不会被分派到所连接的当前目标。                      |
-| **detail**             | Function | 自定义事件的信息（属于 Event.EventCustom）。    |
-| **setUserData**             | Function | 设置自定义事件的信息（属于 Event.EventCustom）。    |
-| **getUserData**             | Function | 获取自定义事件的信息（属于 Event.EventCustom）    |
 
 ## 系统内置事件
 

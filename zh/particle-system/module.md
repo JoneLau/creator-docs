@@ -1,8 +1,8 @@
-## 粒子系统功能介绍
+# 粒子系统功能介绍
 
 ParticleSystem 存储了粒子发射的初始状态以及粒子发射后状态更新子模块。
 
-### 粒子系统模块
+## 粒子系统模块
 
 [主模块(ParticleSystem)](main-module.md)
 
